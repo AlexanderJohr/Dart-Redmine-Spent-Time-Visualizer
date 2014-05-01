@@ -100,9 +100,5 @@ class RedmineCsvParser{
       redmineIssueMap[issueName] = newRedmineIssue;
       return newRedmineIssue;
     }
-
   }
-
-
-
 }

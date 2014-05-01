@@ -3,7 +3,6 @@ library spend_time_visualizer;
 import 'package:d3/scale/scale.dart';
 import 'package:d3/dsv/dsv.dart';
 import 'dart:svg';
-import 'dart:html' as DartHtml;
 import 'dart:math' as DartMath;
 
 part 'spider_chart/data_structures/caption_proportion_pair.dart';

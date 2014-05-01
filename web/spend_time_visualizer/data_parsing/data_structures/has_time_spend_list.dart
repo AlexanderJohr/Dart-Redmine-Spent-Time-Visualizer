@@ -4,10 +4,6 @@ abstract class HasTimeSpendList{
 
   final List<RedmineTimeSpend> timeSpendList;
 
-
-
-
-
   HasTimeSpendList(List<RedmineTimeSpend> timeSpendList)
       : timeSpendList = initTimeSpendList(timeSpendList);
 
@@ -49,8 +45,6 @@ abstract class HasTimeSpendList{
   int getIndexOfDateOrBetweenTwoDates (final DateTime searchedDateTime) {
 
     DateTime searchedDate = getDateWithoutTime(searchedDateTime);
-
-
 
     final List<RedmineTimeSpend> dateList = timeSpendList;
 
@@ -118,10 +112,9 @@ abstract class HasTimeSpendList{
     timeSpendList.sort(_compareDateDesc);
   }
 
-
   static  int _compareDateDesc(RedmineTimeSpend spendTime1, RedmineTimeSpend spendTime2) {
-    final DateTime  spendTimeDate1 = spendTime1.date;
-    final DateTime  spendTimeDate2 = spendTime2.date;
+    final DateTime spendTimeDate1 = spendTime1.date;
+    final DateTime spendTimeDate2 = spendTime2.date;
 
     final int compareToAsc = spendTimeDate1.compareTo(spendTimeDate2);
     final int compareToDesc = -compareToAsc;
