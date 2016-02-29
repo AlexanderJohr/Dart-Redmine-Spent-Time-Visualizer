@@ -1,15 +1,16 @@
 library spend_time_visualizer;
 
-import 'd3_interface.dart'  as d3;
 import 'dart:svg';
 import 'dart:math' as DartMath;
 import 'dart:html';
 import 'package:js/js.dart';
-import 'package:redmine_spent_time_visualizer/d3_interface.dart';
 
-part 'redmine_csv_data_interface.dart';
+part 'javascript_interfaces/d3_interface.dart';
+part 'javascript_interfaces/j_q_range_slider_interface.dart';
+part 'javascript_interfaces/redmine_csv_data_interface.dart';
 
 part 'spider_chart/spider_chart.dart';
+part 'geometry/padding.dart';
 part 'geometry/spider_grid.dart';
 part 'geometry/spider_visualisation.dart';
 part 'geometry/data_structures/coordinate.dart';

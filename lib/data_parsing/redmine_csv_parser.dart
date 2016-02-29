@@ -18,7 +18,7 @@ class RedmineCsvParser {
 
     final String separator = columnNameMap['Seperator'];
 
-    final d3.Dsv semicolonSeparatedValueParser = d3.dsv(separator, "text/csv");
+    final Dsv semicolonSeparatedValueParser = dsv(separator, "text/csv");
 
     List<Object> parsedCsv
     = semicolonSeparatedValueParser.parse(csvText);

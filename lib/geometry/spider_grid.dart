@@ -11,8 +11,16 @@ class SpiderGrid {
   static const String SPIDER_GRID_AXIS_CAPTION_BOTTOM_CSS = "spider_grid_axis_caption_bottom";
 
   final GElement spiderGridGElement = new GElement();
+  final GElement axisGElement = new GElement();
+  final GElement axisLinesGElement = new GElement();
+  final GElement axisTextsGElement = new GElement();
 
-  SpiderGrid();
+
+  SpiderGrid(){
+    spiderGridGElement.append(axisGElement);
+    axisGElement.append(axisLinesGElement);
+    axisGElement.append(axisTextsGElement);
+  }
 
 
   static List<List<Coordinate>> calculateGridCoordiantes(
@@ -20,7 +28,7 @@ class SpiderGrid {
       num capsCount, num radius) {
     List<List<Coordinate>> gridCoordiantes = new List();
 
-    d3.LinearScale gridLinearScale = createGridLinearScale(capsCount, radius);
+    LinearScale gridLinearScale = createGridLinearScale(capsCount, radius);
 
     final int subdivisionAxisCount = captionList.length;
     double startRadian = DartMath.PI / subdivisionAxisCount;
@@ -35,7 +43,7 @@ class SpiderGrid {
   }
 
   static List<Coordinate> calculateCapCoordinates(
-      d3.LinearScale gridLinearScale, int iCap, int subdivisionAxisCount,
+      LinearScale gridLinearScale, int iCap, int subdivisionAxisCount,
       double startRadian) {
     List<Coordinate> capCoordiantes = new List();
 
@@ -49,8 +57,8 @@ class SpiderGrid {
     return capCoordiantes;
   }
 
-  static d3.LinearScale createGridLinearScale(num capsCount, num radius) =>
-      d3.linear()
+  static LinearScale createGridLinearScale(num capsCount, num radius) =>
+      linear()
         ..domain([0, capsCount])
         ..range([0, radius]);
 
@@ -86,7 +94,7 @@ class SpiderGrid {
     PathElement capSvgPath = new PathElement();
     capSvgPath.classes.add(SPIDER_GRID_CAP_CSS);
 
-    d3.LineFunction lineFunction = d3.line()
+    LineFunction lineFunction = line()
       ..x(allowInterop(([LinePoint point, num index]) => point.x))
       ..y(allowInterop(([LinePoint point, num index]) => point.y))
       ..interpolate("linear-closed");
@@ -100,14 +108,15 @@ class SpiderGrid {
   GElement createSpiderAxisGElement(List<Coordinate> lastCapCoordiantes,
       Map<String, num> data) {
     final int axisCount = lastCapCoordiantes.length;
+    axisLinesGElement.children.clear();
+    axisTextsGElement.children.clear();
 
-    final GElement axisGElement = new GElement();
     for (int iAxis = 0; iAxis < axisCount; iAxis++) {
       Coordinate axisCoordinate = lastCapCoordiantes[iAxis];
 
-      _appendAxisLineElement(axisGElement, axisCoordinate);
+      _appendAxisLineElement(axisLinesGElement, axisCoordinate);
       String axisLabelText = _lookUpAxisLabelText(data, iAxis);
-      _appendAxisTextElement(axisGElement, axisLabelText, axisCoordinate);
+      _appendAxisTextElement(axisTextsGElement, axisLabelText, axisCoordinate);
     }
 
     return axisGElement;

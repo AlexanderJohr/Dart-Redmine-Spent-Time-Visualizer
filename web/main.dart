@@ -3,19 +3,25 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'dart:html';
-import 'package:redmine_spent_time_visualizer/j_q_range_slider_interface.dart';
-import 'package:redmine_spent_time_visualizer/spent_time_visualizer.dart';
 import 'dart:async';
 import 'package:js/js.dart';
+import 'package:redmine_spent_time_visualizer/spent_time_visualizer.dart';
 
-SpiderChart spiderChart = new SpiderChart(5, 800, 800);
+SpiderChart spiderChart = new SpiderChart(
+    subdivisionCapsCount: 5,
+    width: 1000,
+    height: 1000,
+    padding: new Padding(200,200,50,50));
+
+
 
 main() async {
   Element spendTimeVisualizerElement = querySelector(
-      '#spend_time_visualizer_container');
-  spiderChart.renderTo(spendTimeVisualizerElement);
+      '#spent_time_visualizer_container');
+  spiderChart.renderTarget = spendTimeVisualizerElement;
 
-  TextAreaElement importCsvInput = querySelector("#import_csv_input") as TextAreaElement;
+  TextAreaElement importCsvInput = querySelector(
+      "#import_csv_input") as TextAreaElement;
   String textAreaCsvInput = await getTextAreaInput();
   importCsvInput.value = textAreaCsvInput;
 
@@ -28,12 +34,9 @@ main() async {
     String csvInput = importCsvInput.value;
     handleCsvInput(csvInput);
   });
-
 }
 
-
-
-void handleCsvInput(String csvInput){
+void handleCsvInput(String csvInput) {
   RedmineData parsedExampleData = parseExampleData(csvInput);
 
   DateTime minDate = getMinDate(parsedExampleData);
@@ -42,8 +45,11 @@ void handleCsvInput(String csvInput){
   createJQRangeSlider(minDate, maxDate, parsedExampleData, spiderChart);
 }
 
-Future<String> getExampleInput() async => await HttpRequest.getString("./input/input.dsv");
-Future<String> getTextAreaInput() async => await HttpRequest.getString("./input/text_area_input.dsv");
+Future<String> getExampleInput() async =>
+    await HttpRequest.getString("./input/input.dsv");
+
+Future<String> getTextAreaInput() async =>
+    await HttpRequest.getString("./input/text_area_input.dsv");
 
 
 RedmineData parseExampleData(String input) {
@@ -106,8 +112,8 @@ num getSumOfHours(List<RedmineSpentTime> spentTimeInPeriod) =>
         0, (num sum, RedmineSpentTime spentTime) => sum + spentTime.hours);
 
 
-void createJQRangeSlider(DateTime minDate, DateTime maxDate, RedmineData parsedExampleData, SpiderChart spiderChart) {
-
+void createJQRangeSlider(DateTime minDate, DateTime maxDate,
+    RedmineData parsedExampleData, SpiderChart spiderChart) {
   var dateRangeSliderElement = jQuery('#date_section_range_slider');
 
   Date jsMinDate = new Date(minDate.year, minDate.month, minDate.day);
@@ -127,11 +133,10 @@ void createJQRangeSlider(DateTime minDate, DateTime maxDate, RedmineData parsedE
     DateTime maxDate =
     new DateTime.fromMillisecondsSinceEpoch(data.values.max.getTime());
 
-      visualizeDataInSpiderChart(
-          parsedExampleData, minDate, maxDate, spiderChart);
+    visualizeDataInSpiderChart(
+        parsedExampleData, minDate, maxDate, spiderChart);
   }
 
   jQuery('#date_section_range_slider')
       .bind("valuesChanging", allowInterop(dateSliderValuesChanging));
 }
-

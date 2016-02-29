@@ -26,13 +26,6 @@ h1, p {
   margin-top: 140px;
 }
 
-#spend_time_visualizer_container{
-  height: 800px;
-  width: 800px;
-  padding: 150px;
-  padding-top: 50px;
-  margin: auto;
-}
 
 .spider_grid_cap{
   stroke: #F5F3DC;
@@ -92,6 +85,7 @@ background-color: #FF5828;
 
 #import_csv_input {
 width: 100%;
+height: 400px;
 background-color: #454445;
 color: #F5F3DC;
 font-family: 'Open Sans', sans-serif;
@@ -100,3 +94,27 @@ padding: 10px;
 box-sizing: border-box;
 margin-bottom: 10px;
 }
+
+
+@media (orientation: portrait) {
+#import_csv_form{
+width: 100%;
+}
+#spent_time_visualizer_container{
+  width: 100%;
+}
+ }
+
+ @media (orientation: landscape) {
+#import_csv_form{
+  width: 39%;
+          display: inline-block;
+          vertical-align: middle;
+}
+
+#spent_time_visualizer_container{
+  width: 60%;
+         display: inline-block;
+         vertical-align: middle;
+}
+  }

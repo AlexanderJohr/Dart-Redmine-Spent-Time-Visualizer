@@ -1,9 +1,6 @@
-@JS('d3')
-library d3;
+part of spend_time_visualizer;
 
-import 'package:js/js.dart';
-
-@JS('scale.linear')
+@JS('d3.scale.linear')
 external LinearScale linear();
 
 @JS()
@@ -12,6 +9,7 @@ class LinearScale{
   external dynamic range([List<num> range]);
 }
 
+@JS('d3.dsv')
 external Dsv dsv(String delimiter, String type);
 
 @JS()
@@ -19,7 +17,7 @@ class Dsv{
   external List<Object> parse(String stringToParse);
 }
 
-@JS('svg.line')
+@JS('d3.svg.line')
 external LineFunction line();
 
 @JS()

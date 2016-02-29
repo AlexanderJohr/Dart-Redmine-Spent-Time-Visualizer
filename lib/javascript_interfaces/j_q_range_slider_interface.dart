@@ -1,6 +1,4 @@
-library jquery;
-
-import 'package:js/js.dart';
+part of spend_time_visualizer;
 
 @JS('jQuery')
 external QueryResult jQuery(String query);
@@ -19,7 +17,6 @@ external printOptions(Options options);
 @anonymous
 class Options {
   external bool get responsive;
-
   external factory Options({bool responsive});
 }
 

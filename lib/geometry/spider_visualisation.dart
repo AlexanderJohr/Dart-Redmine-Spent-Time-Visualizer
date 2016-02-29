@@ -25,8 +25,8 @@ class SpiderVisualisation {
     gElement.classes.add(SPIDER_GRID_PROPORTION_VISUALISATION_G_CSS_CLASS);
   }
 
-  static d3.LinearScale _createLinearScale(Iterable<num> data, num radius) {
-    final d3.LinearScale linearScale = d3.linear();
+  static LinearScale _createLinearScale(Iterable<num> data, num radius) {
+    final LinearScale linearScale = linear();
 
     num maxValue = data.fold(
         0, (num prevMax, currData) => DartMath.max(prevMax, currData));
@@ -36,23 +36,7 @@ class SpiderVisualisation {
       ..range([0, radius]);
   }
 
-  set data(Map<String, num> dataByCaption) {
-    final bool isDataCountLowerThenThree = dataByCaption.length < 3;
-
-    if (isDataCountLowerThenThree) {
-      throw new ArgumentError(
-          "Length of data collection must be greater than 2 to draw a spider chart.");
-    }
-
-    d3.LinearScale linearScale = _createLinearScale(
-        dataByCaption.values, _radius);
-    List<Coordinate> circleCoordinates = _calculateCircleCoordinates(
-        linearScale, dataByCaption.values);
-
-    _drawPath(circleCoordinates);
-  }
-
-  List<Coordinate> _calculateCircleCoordinates(d3.LinearScale linearScale,
+  List<Coordinate> _calculateCircleCoordinates(LinearScale linearScale,
       Iterable<num> data) {
     final List<Coordinate> circleCoordinates = new List();
     final num subdivisionCount = data.length;
@@ -73,7 +57,7 @@ class SpiderVisualisation {
   }
 
   void _drawPath(List<Coordinate> coordinates) {
-    d3.LineFunction lineFunction = d3.line()
+    LineFunction lineFunction = line()
       ..x(allowInterop(([LinePoint point, num index]) => point.x))
       ..y(allowInterop(([LinePoint point, num index]) => point.y))
       ..interpolate("linear-closed");
@@ -81,5 +65,21 @@ class SpiderVisualisation {
     var lineData = lineFunction.apply(lineFunction, [coordinates]);
 
     pathElement.setAttribute("d", lineData);
+  }
+
+  void draw(Map<String, num> data) {
+  final bool isDataCountLowerThenThree = data.length < 3;
+
+  if (isDataCountLowerThenThree) {
+  throw new ArgumentError(
+  "Length of data collection must be greater than 2 to draw a spider chart.");
+  }
+
+  LinearScale linearScale = _createLinearScale(
+      data.values, _radius);
+  List<Coordinate> circleCoordinates = _calculateCircleCoordinates(
+  linearScale, data.values);
+
+  _drawPath(circleCoordinates);
   }
 }
