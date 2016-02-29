@@ -71,3 +71,32 @@ h1, p {
   dominant-baseline: hanging;
 }
 
+
+#calculate_button{
+  width: 100%;
+background-color: #454445;
+color: #F5F3DC;
+font-family: 'Open Sans', sans-serif;
+border-color: #F5F3DC;
+border-style: solid;
+text-align: center;
+box-sizing: border-box;
+padding: 10px;
+font-size: 20px;
+}
+
+#calculate_button:hover {
+background-color: #FF5828;
+
+}
+
+#import_csv_input {
+width: 100%;
+background-color: #454445;
+color: #F5F3DC;
+font-family: 'Open Sans', sans-serif;
+border-color: #F5F3DC;
+padding: 10px;
+box-sizing: border-box;
+margin-bottom: 10px;
+}
