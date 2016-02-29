@@ -110,17 +110,26 @@ void createJQRangeSlider(DateTime minDate, DateTime maxDate, RedmineData parsedE
 
   var dateRangeSliderElement = jQuery('#date_section_range_slider');
 
+  Date jsMinDate = new Date(minDate.year, minDate.month, minDate.day);
+  Date jsMaxDate = new Date(maxDate.year, maxDate.month, maxDate.day);
+
   RangeSliderOptions rangeSliderOptions = new RangeSliderOptions(
       wheelMode: 'zoom',
-      bounds: new RangeSliderDateRange(min: minDate, max: maxDate),
-      defaultValues: new RangeSliderDateRange(min: minDate, max: maxDate));
+      bounds: new RangeSliderDateRange(min: jsMinDate, max: jsMaxDate),
+      defaultValues: new RangeSliderDateRange(min: jsMinDate, max: jsMaxDate));
 
   dateRangeSliderElement.dateRangeSlider(rangeSliderOptions);
 
 
-  void dateSliderValuesChanging(e, ValueChangeEventData data) =>
+  void dateSliderValuesChanging(e, ValueChangeEventData data) {
+    DateTime minDate =
+    new DateTime.fromMillisecondsSinceEpoch(data.values.min.getTime());
+    DateTime maxDate =
+    new DateTime.fromMillisecondsSinceEpoch(data.values.max.getTime());
+
       visualizeDataInSpiderChart(
-          parsedExampleData, data.values.min, data.values.max, spiderChart);
+          parsedExampleData, minDate, maxDate, spiderChart);
+  }
 
   jQuery('#date_section_range_slider')
       .bind("valuesChanging", allowInterop(dateSliderValuesChanging));

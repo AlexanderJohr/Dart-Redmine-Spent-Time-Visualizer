@@ -13,11 +13,6 @@ class QueryResult {
 }
 
 @JS()
-class Date {
-  external Date([int year, int month, int day]);
-}
-
-@JS()
 external printOptions(Options options);
 
 @JS()
@@ -43,15 +38,21 @@ class RangeSliderOptions {
 }
 
 @JS()
+class Date {
+  external num getTime();
+  external factory Date([int year, int month, int day]);
+}
+
+@JS()
 @anonymous
 class RangeSliderDateRange {
   external get wheelMode;
 
-  external DateTime get min;
+  external Date get min;
 
-  external DateTime get max;
+  external Date get max;
 
-  external factory RangeSliderDateRange({DateTime min, DateTime max});
+  external factory RangeSliderDateRange({Date min, Date max});
 }
 
 @JS()
@@ -64,8 +65,8 @@ class ValueChangeEventData {
 @JS()
 @anonymous
 class ValueChangeEventDataValues {
-  external DateTime get min;
-  external DateTime get max;
+  external Date get min;
+  external Date get max;
 }
 
 
