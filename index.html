@@ -17,7 +17,7 @@
 
     <script src="dependencies/jQRangeSlider-5.6.0/jQAllRangeSliders-withRuler-min.js"></script>
 
-    <link rel="stylesheet" href="dartd3spendtimevisualizer.css">
+    <link rel="stylesheet" href="style.css">
 
 
     <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
@@ -30,13 +30,14 @@
 <h1>Redmine Spent Time Visualizer</h1>
 
 <div id="date_section_range_slider"></div>
-<svg id="spend_time_visualizer_container">
+<div class="table_row">
+<svg id="spent_time_visualizer_container">
 </svg>
-
-<form>
+<form id="import_csv_form">
     <textarea id="import_csv_input"></textarea>
     <div id="calculate_button">calculate</div>
 </form>
+</div>
 
 
 
